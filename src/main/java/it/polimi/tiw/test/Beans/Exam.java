@@ -1,10 +1,10 @@
 package it.polimi.tiw.test.Beans;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 public class Exam{
 	private String courseCode;
-	private Timestamp date;
+	private Date date;
 	
 
 	public Exam() {
@@ -19,12 +19,12 @@ public class Exam{
 		this.courseCode = courseCode;
 	}
 
-	public Timestamp getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(Timestamp timestamp) {
-		this.date = timestamp;
+	public void setDate(Date date) {
+		this.date = date;
 	}
 	
 }

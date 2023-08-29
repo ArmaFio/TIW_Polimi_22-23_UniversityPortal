@@ -22,7 +22,7 @@ Risultato:<br>
 	<td>${user.email}</td>
 	<td>${esito.course}</td>
 	<td>${esito.teacherName} ${esito.teacherSurname}</td>
-    <td>${esito.date}</td>
+    <td>${date}</td>
     <td>${esito.status}</td>
     <td>${esito.vote}</td>
     </tr>

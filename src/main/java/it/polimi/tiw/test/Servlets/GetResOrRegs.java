@@ -15,6 +15,7 @@ import it.polimi.tiw.test.DAO.RegistrationDAO;
 import it.polimi.tiw.test.Utils.ConnectionHandler;
 import javax.servlet.RequestDispatcher;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class GetResOrRegs extends HttpServlet {
 		User u=(User) request.getSession().getAttribute("user");
 		CourseDAO c= new CourseDAO(db);
 		String e= request.getParameter("exc");
-		Timestamp dt=Timestamp.valueOf(request.getParameter("exd"));
+		Date dt= Date.valueOf(request.getParameter("exd"));
 		int o=Integer.parseInt(request.getParameter("o"));
 		RegistrationDAO reg= new RegistrationDAO(db);
 		switch(u.getStatus()) {
@@ -63,6 +64,7 @@ public class GetResOrRegs extends HttpServlet {
 				String path1="/WEB-INF/Esito.jsp";
 				request.setAttribute("esito", esito);
 				request.setAttribute("exc", e);
+				request.setAttribute("date", dt.toString());
 				RequestDispatcher d1= request.getRequestDispatcher(path1);
 				d1.forward(request, response);
 				return;
@@ -84,7 +86,7 @@ public class GetResOrRegs extends HttpServlet {
 				response.sendError(HttpServletResponse.SC_BAD_GATEWAY, "3failed to connect to the database");
 				return;
 			} 
-			ArrayList <Registration> iscr=new ArrayList<>();
+			ArrayList <Registration> iscr;
 			try {
 				iscr= reg.getExamRegistrations(e, dt, o);
 			} catch (SQLException e1) {
@@ -95,7 +97,7 @@ public class GetResOrRegs extends HttpServlet {
 			request.setAttribute("regs", iscr);
 			request.setAttribute("order", o);
 			request.setAttribute("cc", e);
-			request.setAttribute("date", dt);			
+			request.setAttribute("date", dt.toString());
 			RequestDispatcher d2= request.getRequestDispatcher(path2);
 			d2.forward(request, response);
 			return;

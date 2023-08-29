@@ -37,8 +37,8 @@ public class CheckLogin extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String matr=request.getParameter("matricola");
-		String pw=request.getParameter("password");
+		String matr=request.getParameter("Id");
+		String pw=request.getParameter("Password");
 		String loginpath = getServletContext().getContextPath() + "/LoginPage.html";
 
 		if (matr == null || matr.isEmpty() || pw == null || pw.isEmpty()) {

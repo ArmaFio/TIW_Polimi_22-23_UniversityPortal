@@ -1,4 +1,4 @@
-package it.polimi.tiw.test.Utils;
+package it.polimi.tiw.test.Filters;
 
 import it.polimi.tiw.test.Beans.User;
 
@@ -7,8 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-public class SessionChecker implements Filter {
-
+public class StudentChecker implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -21,7 +20,7 @@ public class SessionChecker implements Filter {
         HttpServletRequest req= (HttpServletRequest) servletRequest;
         User u= (User) req.getSession().getAttribute("user");
         String loginpath = req.getServletContext().getContextPath() + "/LoginPage.html";
-        if (req.getSession().isNew() || u == null) {
+        if (req.getSession().isNew() || u == null || u.isTeacher()) {
             res.sendRedirect(loginpath);
             return;
         }

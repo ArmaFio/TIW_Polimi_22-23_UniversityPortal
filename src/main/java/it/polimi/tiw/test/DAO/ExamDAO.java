@@ -28,7 +28,7 @@ public class ExamDAO{
 					while(result.next()) {
 						Exam a= new Exam();
 						a.setCourseCode(idc);
-						a.setDate(result.getTimestamp("Data"));
+						a.setDate(result.getDate("Data"));
 						exams.add(a);
 					}
 					return exams;
@@ -51,7 +51,7 @@ public class ExamDAO{
 					while(!result.isAfterLast()) {
 						Exam a= new Exam();
 						a.setCourseCode(idc);
-						a.setDate(result.getTimestamp("Data"));
+						a.setDate(result.getDate("Data"));
 						exams.add(a);
 						result.next();
 					}

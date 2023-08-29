@@ -29,7 +29,7 @@ ${vv.vote}<br><br>
 </c:forEach>
  <br>
     <br>
-    <a href="/Verbalizzazione-Esami/Logout"> LOGOUT </a>
+    <a href="<c:url value="/Logout"/>"> LOGOUT </a>
 </h3>
 </body>
 </html>

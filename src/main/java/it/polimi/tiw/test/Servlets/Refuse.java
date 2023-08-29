@@ -2,6 +2,7 @@ package it.polimi.tiw.test.Servlets;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
@@ -41,7 +42,7 @@ public class Refuse extends HttpServlet {
 		User u=(User) request.getSession().getAttribute("user");
 		CourseDAO c=new CourseDAO(db);
 		String e= request.getParameter("exc");
-		Timestamp dt=Timestamp.valueOf(request.getParameter("exd"));
+		Date dt=Date.valueOf(request.getParameter("exd"));
 		RegistrationDAO d= new RegistrationDAO(db);
 		Registration r=new Registration();
 		try {

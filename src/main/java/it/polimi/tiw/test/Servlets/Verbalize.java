@@ -2,6 +2,7 @@ package it.polimi.tiw.test.Servlets;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -42,7 +43,7 @@ public class Verbalize extends HttpServlet {
 		User u=(User) request.getSession().getAttribute("user");
 		RegistrationDAO verb= new RegistrationDAO(db);
 		String e= request.getParameter("exc");
-		Timestamp dt=Timestamp.valueOf(request.getParameter("exd"));
+		Date dt=Date.valueOf(request.getParameter("exd"));
 		Verbal v=new Verbal();
 		ArrayList<Registration> Verbalinfo= new ArrayList<>();
 		CourseDAO c=new CourseDAO(db);
@@ -78,6 +79,7 @@ public class Verbalize extends HttpServlet {
 			v.setRegistrations(Verbalinfo);
 			path="/WEB-INF/Verbale.jsp";
 			request.setAttribute("verbal", v);
+			request.setAttribute("idcorso", e);
 			RequestDispatcher req= request.getRequestDispatcher(path);
 			req.forward(request, response);
 			return;

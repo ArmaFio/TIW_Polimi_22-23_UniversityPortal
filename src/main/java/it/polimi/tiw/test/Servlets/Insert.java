@@ -2,6 +2,7 @@ package it.polimi.tiw.test.Servlets;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
@@ -43,8 +44,8 @@ public class Insert extends HttpServlet {
 		String vote= request.getParameter("vote");
 		String [] available= new String [] {"18","19","20","21","22","23","24","25","26","27","28","29","30","30L","Rimandato","Riprovato","Assente"};
 		String e= request.getParameter("exc");
-		Timestamp dt=Timestamp.valueOf(request.getParameter("exd"));
-		String m=request.getParameter("id");
+		Date dt= Date.valueOf(request.getParameter("exd"));
+		int m=Integer.parseInt(request.getParameter("matr"));
 		RegistrationDAO r = new RegistrationDAO(db);
 		Registration reg=new Registration();
 		try {

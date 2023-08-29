@@ -37,8 +37,8 @@ SELEZIONA UN APPELLO
 <table border="1"><tr><td>DATA</td></tr>
 <c:forEach var="ex" items="${Exams}">
 <tr><c:url value="/GetResOrRegs" var="rrURL">
-<c:param name="exc" value="${ex.courseCode}"/> <c:param name="exd" value="${ex.date}"/> <c:param name="o" value="1" /></c:url>
-<td><a href="${rrURL}"> <c:out value="${ex.date}"/> </a></td></tr>
+<c:param name="exc" value="${Exc}"/> <c:param name="exd" value="${ex}"/> <c:param name="o" value="1" /></c:url>
+<td><a href="${rrURL}"> <c:out value="${ex}"/> </a></td></tr>
 </c:forEach></table></c:when>
 <c:otherwise> Nessun Appello disponibile per questo corso</c:otherwise>
 </c:choose>

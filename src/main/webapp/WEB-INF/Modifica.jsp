@@ -20,7 +20,7 @@ Risultato:<br>
 	<input type="text" name="vote" required> <br>
 	<input type="hidden" name="exc" value="${exc}"> <br>
 	<input type="hidden" name="exd" value="${exd}"> <br>
-	<input type="hidden" name="id" value="${matr}"> <br>
+	<input type="hidden" name="matr" value="${matr}"> <br>
 	<input type="submit" value="Insert"></form></td>
     </tr>
     </table>

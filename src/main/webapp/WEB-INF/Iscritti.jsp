@@ -8,6 +8,8 @@
 <title>Iscritti</title></head>
 <body>
 <h1>ISCRITTI APPELLO<br></h1>
+<c:choose>
+<c:when test="${regs.size()>0}">
 <table border=1>
 <tr><td><a href="<c:url value="/GetResOrRegs?exc=${cc}&&exd=${date}&&o=${order==1? 2:1}"/>"> MATRICOLA </a></td>
 <td><a href="<c:url value="/GetResOrRegs?exc=${cc}&&exd=${date}&&o=${order==5? 6:5}"/>"> NOME </a></td>
@@ -44,6 +46,9 @@
     </form>
      <br>
     <br>
+</c:when>
+<c:otherwise>NON SONO PRESENTI VALUTAZIONI PER QUESTO APPELLO<br><br></c:otherwise>
+</c:choose>
     <a href="<c:url value="/Logout"/>"> LOGOUT </a>
     </body>
 </html>

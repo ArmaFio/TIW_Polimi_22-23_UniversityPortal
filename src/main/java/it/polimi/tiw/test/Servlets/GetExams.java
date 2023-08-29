@@ -36,6 +36,7 @@ public class GetExams extends HttpServlet {
 		CourseDAO c=new CourseDAO(db);
 		String CourseId= (String) request.getParameter("corso");
 		ArrayList <Exam> Exams=new ArrayList<>();
+		ArrayList <String> Dates= new ArrayList<>();
 		ExamDAO ex= new ExamDAO(db);
 		switch(u.getStatus()) {
 		case STUDENT->{
@@ -75,8 +76,12 @@ public class GetExams extends HttpServlet {
 			}
 		}
 		}
+		for(Exam e: Exams){
+			Dates.add(e.getDate().toString());
+		}
 	    String path="/GoToHome";
-        request.setAttribute("Exams", Exams);
+        request.setAttribute("Exams", Dates);
+		request.setAttribute("Exc", CourseId);
         RequestDispatcher req= request.getRequestDispatcher(path);
         req.forward(request, response);
         return;

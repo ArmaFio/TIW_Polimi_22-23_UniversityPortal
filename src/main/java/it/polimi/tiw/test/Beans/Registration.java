@@ -1,9 +1,9 @@
 package it.polimi.tiw.test.Beans;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 public class Registration {
-    private Timestamp date;
+    private Date date;
 	private int matr;
 	private String gc;
 	private String email;
@@ -117,11 +117,11 @@ public class Registration {
 	}
 
 	
-	public Timestamp getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(Timestamp date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 

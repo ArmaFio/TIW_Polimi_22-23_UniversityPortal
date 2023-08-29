@@ -1,15 +1,11 @@
 package it.polimi.tiw.test.DAO;
 
-import java.sql.Connection;
+import java.sql.*;
 
 import it.polimi.tiw.test.Beans.EvalStatus;
 import it.polimi.tiw.test.Beans.Registration;
 import it.polimi.tiw.test.Beans.Verbal;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 
 public class RegistrationDAO{
@@ -19,12 +15,12 @@ public class RegistrationDAO{
 		db=c;
 	}
 	
-	public ArrayList<Registration> getExamRegistrations(String id, Timestamp data, int order) throws SQLException{
+	public ArrayList<Registration> getExamRegistrations(String id, Date data, int order) throws SQLException{
 		ArrayList<Registration> Regs= new ArrayList<>();
 		String prep="SELECT A.Matricola,StatoValutazione,Voto,Mail,CorsoLaurea,Nome,Cognome,NomeCorso FROM iscrizioniappelli as A ,utenti as B, corsi as C WHERE A.Matricola=B.Matricola and A.CodiceCorso=? and A.CodiceCorso=C.CodiceCorso and Data=? ORDER BY "+getOrderBy(order);
 		try(PreparedStatement query= db.prepareStatement(prep);){
 			query.setString(1, id);
-			query.setTimestamp(2, data);	
+			query.setDate(2, data);
 			try(ResultSet result= query.executeQuery();){
 				if(!result.isBeforeFirst())
 					return Regs;
@@ -59,14 +55,14 @@ public class RegistrationDAO{
 		}
 	}
 		
-	
-	public Registration getExamRegistration(String id, Timestamp data, String matr) throws SQLException{
+
+	public Registration getExamRegistration(String id, Date data, int matr) throws SQLException{
 		Registration a= new Registration();
 		String prep="SELECT A.Matricola,StatoValutazione,Voto,Mail,CorsoLaurea,Nome,Cognome,NomeCorso FROM iscrizioniappelli as A ,utenti as B, corsi as C WHERE A.Matricola=? and A.Matricola=B.Matricola and A.CodiceCorso=? and A.CodiceCorso=C.CodiceCorso and Data=?";
 		try(PreparedStatement query= db.prepareStatement(prep);){
-			query.setString(1, matr);
+			query.setInt(1, matr);
 			query.setString(2, id);
-			query.setTimestamp(3, data);	
+			query.setDate(3, data);
 			try(ResultSet result= query.executeQuery();){
 				if(!result.isBeforeFirst())
 					return a;
@@ -83,13 +79,13 @@ public class RegistrationDAO{
 			}
 		}
 	}
-	
-	public Registration getStudentRegistration(int matr, String id, Timestamp data) throws SQLException{
+
+	public Registration getStudentRegistration(int matr, String id, Date data) throws SQLException{
 		Registration a= new Registration();
-		String prep= "SELECT StatoValutazione,Voto,Nome,Cognome,NomeCorso FROM iscrizioniappelli as A ,utenti as B, corsi as C WHERE  A.CodiceCorso=? and A.CodiceCorso=C.CodiceCorso and C.Docente=B.Matricola and Data=? and A.Matricola=?";
+		String prep= "SELECT StatoValutazione,Voto,Nome,Cognome,NomeCorso FROM iscrizioniappelli as A ,utenti as B, corsi as C WHERE  A.CodiceCorso=? and A.CodiceCorso=C.CodiceCorso and C.Docente=B.ID and Data=? and A.Matricola=?";
 		try(PreparedStatement query= db.prepareStatement(prep);){
 			query.setString(1, id);
-			query.setTimestamp(2, data);
+			query.setDate(2, data);
 			query.setInt(3, matr);
 			try(ResultSet result= query.executeQuery();){
 				if(!result.isBeforeFirst())
@@ -121,16 +117,16 @@ public class RegistrationDAO{
 		}
 	}
 	
-	public void PublishVotes(String CourseCode, Timestamp data) throws SQLException{
+	public void PublishVotes(String CourseCode, Date data) throws SQLException{
 		String prep= "UPDATE iscrizioniappelli SET StatoValutazione= 2 WHERE StatoValutazione=1 and CodiceCorso=? and Data=?";
 		try(PreparedStatement query= db.prepareStatement(prep);){
 			query.setString(1, CourseCode);
-		    query.setTimestamp(2, data);
+		    query.setDate(2, data);
 		    query.execute();
 		}
 	}
 	
-	public Verbal VerbalizeVotes(String CourseCode, Timestamp data) throws SQLException{
+	public Verbal VerbalizeVotes(String CourseCode, Date data) throws SQLException{
 		db.setAutoCommit(false);
 		Verbal v= new Verbal();
 		try{
@@ -139,13 +135,13 @@ public class RegistrationDAO{
 			String pr="UPDATE iscrizioniappelli SET Voto= -2 Where StatoValutazione=3 and CodiceCorso=? and Data=?";
 			PreparedStatement query1= db.prepareStatement(pr);
 			query1.setString(1, CourseCode);
-			query1.setTimestamp(2,data);
+			query1.setDate(2,data);
 			query1.execute();
 			String prep= "UPDATE iscrizioniappelli SET Verbale=?, StatoValutazione=4 WHERE (StatoValutazione=2 or StatoValutazione=3) and CodiceCorso=? and Data=?";
 			PreparedStatement query2= db.prepareStatement(prep);
 			query2.setInt(1, v.getId());
 			query2.setString(2, CourseCode);
-			query2.setTimestamp(3, data);
+			query2.setDate(3, data);
 			query2.execute();
 		}
 		finally {
@@ -154,23 +150,23 @@ public class RegistrationDAO{
 		return v;
 	}
 	
-	public void InsertVote(String matr, String id, Timestamp data, int i) throws SQLException{
+	public void InsertVote(int matr, String id, Date data, int i) throws SQLException{
 		String prep="Update iscrizioniappelli SET Voto=?,StatoValutazione=1 WHERE Matricola=? AND CodiceCorso=? AND Data=? AND (StatoValutazione=0 OR StatoValutazione=1)";
 		try(PreparedStatement query= db.prepareStatement(prep);){
 			query.setInt(1,i);
-			query.setString(2,matr);
+			query.setInt(2,matr);
 			query.setString(3,id);
-			query.setTimestamp(4,data);
+			query.setDate(4,data);
 			query.execute();
 		}
 	}
 	
-	public void RefuseVote(int matr, Timestamp data, String id) throws SQLException  {
+	public void RefuseVote(int matr, Date data, String id) throws SQLException  {
 		String prep="Update iscrizioniappelli SET StatoValutazione=3 WHERE Matricola=? AND CodiceCorso=? AND Data=? AND StatoValutazione=2 AND Voto>=18 AND Voto<=31";
 		try(PreparedStatement query= db.prepareStatement(prep);){
 			query.setInt(1,matr);
 			query.setString(2,id);
-			query.setTimestamp(3,data);
+			query.setDate(3,data);
 			query.execute();
 		}
 	}
