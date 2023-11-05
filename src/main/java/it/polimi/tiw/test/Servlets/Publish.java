@@ -42,8 +42,7 @@ public class Publish extends HttpServlet {
 		RegistrationDAO publish= new RegistrationDAO(db);
 		try {
 			if(!c.checksProfessor(e, u.getId())){
-				String path = getServletContext().getContextPath() + "/GoToHome";
-				response.sendRedirect(path);
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Not Allowed");
 				return;
 			}
 		} catch (SQLException e2) {

@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.util.Objects;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -47,8 +48,7 @@ public class Refuse extends HttpServlet {
 		Registration r=new Registration();
 		try {
 			if(!c.checksStudent(e, u.getMatricola())){
-				String path = getServletContext().getContextPath() + "/GoToHome";
-				response.sendRedirect(path);
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Not Allowed");
 				return;
 			}
 		} catch (SQLException e2) {
@@ -61,16 +61,15 @@ public class Refuse extends HttpServlet {
 			response.sendError(HttpServletResponse.SC_BAD_GATEWAY, "55Impossible to Connect to the database");
 			return;
 		}
-		if(r.getEvalStatus()==EvalStatus.PUBLISHED) {
+		if(r.getEvalStatus()==EvalStatus.PUBLISHED&& !r.getVote().equals("RIMANDATO")&& !r.getVote().equals("RIPROVATO")&& !r.getVote().equals("ASSENTE")) {
 			try {
 				d.RefuseVote(u.getMatricola(), dt, e);
 			}catch(SQLException e1) {
 				response.sendError(HttpServletResponse.SC_BAD_GATEWAY, "66Impossible to Connect to the database");
 				return;
 			}
-			String path="/GetResOrRegs";
-			RequestDispatcher req= request.getRequestDispatcher(path);
-			req.forward(request, response);
+			String path="/GetResOrRegs?exc="+e+"&&exd="+dt+"o=1";
+			response.sendRedirect(path);
 			return;
 		}else {
 			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Not Allowed");

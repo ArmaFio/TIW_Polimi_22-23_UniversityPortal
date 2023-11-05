@@ -50,8 +50,7 @@ public class Verbalize extends HttpServlet {
 		String path= "/GetResOrRegs";
 		try {
 			if(!c.checksProfessor(e, u.getId())){
-				String path2 = getServletContext().getContextPath() + "/GoToHome";
-				response.sendRedirect(path2);
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Not Allowed");
 				return;
 			}
 		} catch (SQLException e2) {
@@ -77,15 +76,11 @@ public class Verbalize extends HttpServlet {
 				return;
 			}
 			v.setRegistrations(Verbalinfo);
-			path="/WEB-INF/Verbale.jsp";
-			request.setAttribute("verbal", v);
-			request.setAttribute("idcorso", e);
-			RequestDispatcher req= request.getRequestDispatcher(path);
-			req.forward(request, response);
+			path="/WEB-INF/Verbale.jsp?verbal="+v+"&&idcorso="+e;
+			response.sendRedirect(path);
 			return;
 		}else {
-			RequestDispatcher req= request.getRequestDispatcher(path);
-			req.forward(request, response);
+			response.sendError(HttpServletResponse.SC_BAD_REQUEST, "No Verbalizable Votes");
 			return;
 		}
 	}

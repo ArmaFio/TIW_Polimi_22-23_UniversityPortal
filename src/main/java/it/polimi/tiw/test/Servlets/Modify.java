@@ -45,8 +45,7 @@ public class Modify extends HttpServlet {
 		int s= Integer.parseInt(request.getParameter("matr"));
 		try {
 			if(!c.checksProfessor(e, u.getId())){
-				String path = getServletContext().getContextPath() + "/GoToHome";
-				response.sendRedirect(path);
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Not Allowed");
 				return;
 			}
 		} catch (SQLException e2) {

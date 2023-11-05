@@ -42,8 +42,7 @@ public class GetExams extends HttpServlet {
 		case STUDENT->{
 			try {
 				if(!c.checksStudent(CourseId, u.getMatricola())){
-					String path = getServletContext().getContextPath() + "/GoToHome";
-					response.sendRedirect(path);
+					response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Not Allowed");
 					return;
 				}
 			} catch (SQLException e2) {
@@ -60,8 +59,7 @@ public class GetExams extends HttpServlet {
 		case TEACHER->{
 			try {
 				if(!c.checksProfessor(CourseId, u.getId())){
-					String path = getServletContext().getContextPath() + "/GoToHome";
-					response.sendRedirect(path);
+					response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Not Allowed");
 					return;
 				}
 			} catch (SQLException e2) {

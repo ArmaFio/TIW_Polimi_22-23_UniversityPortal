@@ -50,8 +50,7 @@ public class Insert extends HttpServlet {
 		Registration reg=new Registration();
 		try {
 			if(!c.checksProfessor(e, u.getId())){
-				String path = getServletContext().getContextPath() + "/GoToHome";
-				response.sendRedirect(path);
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Not Allowed");
 				return;
 			}
 		} catch (SQLException e2) {
@@ -66,7 +65,7 @@ public class Insert extends HttpServlet {
 		}
 		if(reg.getEvalStatus()==EvalStatus.NOT_INSERTED||reg.getEvalStatus()==EvalStatus.INSERTED) {
 			boolean incorrect = true;
-			for(int i = 0; i < available.length&&incorrect==true; i++) {
+			for(int i = 0; i < available.length&& incorrect; i++) {
 				if(vote.equals(available[i])) incorrect = false;
 			}
 			if(incorrect) {
