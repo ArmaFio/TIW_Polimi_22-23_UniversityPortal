@@ -75,7 +75,14 @@ public class Verbalize extends HttpServlet {
 				response.sendError(HttpServletResponse.SC_BAD_GATEWAY, "2Impossible to connect to the database");
 				return;
 			}
-			v.setRegistrations(Verbalinfo);
+			try {
+				verb.takeVerbalized(v);
+			} catch (SQLException ex) {
+				response.sendError(HttpServletResponse.SC_BAD_GATEWAY, "2Impossible to connect to the database");
+				return;
+			}
+			if(v.getRegistrations().isEmpty())
+				response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Error");
 			path="/WEB-INF/Verbale.jsp?verbal="+v+"&&idcorso="+e;
 			response.sendRedirect(path);
 			return;

@@ -116,7 +116,40 @@ public class RegistrationDAO{
 			}
 		}
 	}
-	
+
+	public void takeVerbalized (Verbal v) throws SQLException {
+		String query="SELECT A.Matricola,Voto,Mail,CorsoLaurea,Nome,Cognome FROM iscrizioniappelli A, utenti B WHERE Verbale = ? and A.Matricola=B.Matricola";
+		PreparedStatement query1= db.prepareStatement(query);
+		query1.setInt(1, v.getId());
+		ResultSet result= query1.executeQuery();
+		if(!result.isBeforeFirst())
+			return;
+		else{
+			ArrayList<Registration> verbalized= new ArrayList<>();
+			while(result.next()) {
+				Registration a = new Registration();
+				int gr = result.getInt("Voto");
+				if (gr >= 18 && gr <= 30)
+					a.setVote(String.valueOf(gr));
+				else if (gr == -1)
+					a.setVote("RIPROVATO");
+				else if (gr == -2)
+					a.setVote("RIMANDATO");
+				else if (gr == -3)
+					a.setVote("ASSENTE");
+				else if (gr == 31)
+					a.setVote("30L");
+				a.setMatr(result.getInt("Matricola"));
+				a.setGC(result.getString("CorsoLaurea"));
+				a.setEmail(result.getString("Mail"));
+				a.setName(result.getString("Nome"));
+				a.setSurname(result.getString("Cognome"));
+				verbalized.add(a);
+			}
+			v.setRegistrations(verbalized);
+		}
+
+	}
 	public void PublishVotes(String CourseCode, Date data) throws SQLException{
 		String prep= "UPDATE iscrizioniappelli SET StatoValutazione= 2 WHERE StatoValutazione=1 and CodiceCorso=? and Data=?";
 		try(PreparedStatement query= db.prepareStatement(prep);){
