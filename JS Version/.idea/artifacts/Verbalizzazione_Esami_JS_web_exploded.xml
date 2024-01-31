@@ -1,0 +1,20 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="Verbalizzazione_Esami_JS_web_exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/Verbalizzazione_Esami_JS_web_exploded</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="Verbalizzaizone-Esami-JS" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="gson-2.8.6" />
+          <element id="library" level="project" name="Java EE 6-Java EE 6" />
+          <element id="library" level="application" name="mysql-connector-j-8.0.33" />
+          <element id="library" level="application" name="javafx-swt1" />
+          <element id="library" level="application" name="javafx-swt" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="Verbalizzaizone-Esami-JS/web/Web" />
+    </root>
+  </artifact>
+</component>

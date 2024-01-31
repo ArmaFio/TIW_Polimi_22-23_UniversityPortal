@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="shortcut icon" href="#">
+<meta charset="UTF-8">
+<title>Teacher</title>
+    <link rel="stylesheet" type="text/css" media="all"
+          href="css/mystyle.css"/>
+    <script src="teacherscript.js" charset="utf-8" defer></script>
+    <script src="makeCall.js" charset="utf-8" defer></script>
+    <script src="order.js" charset="utf-8" defer></script>
+</head>
+<body>
+<p><span id="id_welcomemessage"></span></p>
+<table id="id_tabellacorsi">
+    <thead>
+    <tr>
+        <th>CORSI</th>
+    </tr>
+    </thead>
+    <tbody id="id_corsi">
+    </tbody>
+</table>
+
+<table id="id_tabellaappelli">
+    <thead>
+    <tr>
+        <th>APPELLI</th>
+    </tr>
+    </thead>
+    <tbody id="id_appelli">
+    </tbody>
+</table>
+
+<table id="id_tabellaesiti">
+    <thead>
+    <tr><th class="sortable">Matricola</th>
+        <th class="sortable">Nome</th>
+        <th class="sortable">Cognome</th>
+        <th class="sortable">Corso Di Laurea</th>
+        <th class="sortable">E-mail</th>
+        <th class="sortable">Stato Valutazione</th>
+        <th class="sortable">Voto</th></tr>
+    </thead>
+    <tbody id="id_esiti">
+    </tbody>
+</table>
+
+<p><span id="id_matricola"></span></p>
+
+<form id="id_insert" action="#">
+    <fieldset>Esito:<input type="text" name="vote"  required> <br>
+        <input type="hidden" name="exc"  required>
+        <input type="hidden" name="exd"  required>
+        <input type="hidden" name="matr"  required>
+        <input id="insertbutton" type="button" value="Inserisci">
+    </fieldset></form>
+
+
+<form id="id_publish" action="#">
+    <input type="hidden" name="exc">
+    <input type="hidden" name="exd">
+    <input type="button" name="Pubblica" value="Pubblica">
+</form>
+
+<form id="id_verbalize" action="#">
+    <input type="hidden" name="exc">
+    <input type="hidden" name="exd">
+    <input type="button" name="Verbalizza" value="Verbalizza">
+</form>
+
+<button id="id_multipleinsert">Inserimento Multiplo</button>
+<button id="id_conferma">CONFERMA</button>
+<table id="id_verbalized">
+    <thead id="id_dativerbale">
+    </thead>
+    <tbody id="id_list">
+    </tbody>
+</table>
+<div id="id_error" class="errormessage"></div>
+<a href="Logout">Logout</a>
+</body>
+</html>

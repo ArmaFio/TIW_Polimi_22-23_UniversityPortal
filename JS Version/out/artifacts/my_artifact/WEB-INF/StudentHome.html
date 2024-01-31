@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Home</title>
+<script src="MakeCall.js" charset="utf-8" defer></script>
+<script src="Studentscript.js" charset="utf-8" defer></script>
+</head>
+<body>
+		<a href="Logout">Logout</a>
+	</div>
+	<h1>Bentornato</h1>
+	<p><span id="id_surnamename"></span></p>
+	
+	
+	<table id="id_tabellacorsi">
+					<thead>
+						<tr>
+							<th>Nome del corso</th>
+						</tr>
+					</thead>
+					<tbody id="id_corsi">
+					</tbody>
+				</table>
+				
+	<table id="id_tabellaappelli">
+					<thead>
+						<tr>
+							<th>Data</th>
+						</tr>
+					</thead>
+					<tbody id="id_appelli">
+					</tbody>
+				</table>
+				
+	<div id="id_error" class="errormessage"></div>	
+	<div id="id_esito"></div>
+	<form id="id_refuse" action="#">
+			<input type="hidden" name="exc">
+            <input type="hidden" name="exd">
+			<input type="button" type="button" name="Rifiuta" value="Rifiuta">
+	</form>
+	
+	<a href="Logout">Logout</a>
+</body>
+</html>
